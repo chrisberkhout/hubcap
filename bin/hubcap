@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'hubcap'
+
+Hubcap::HubStats.new(:username => ARGV[0], :token => ARGV[1])
