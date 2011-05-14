@@ -1,14 +1,15 @@
-source 'http://rubygems.org'
+source "http://rubygems.org"
 
-gem 'sinatra'
+gem "json"
+gem "sinatra"
 
 group :development, :test do
-  gem 'rspec'
-  gem 'ZenTest'
-  gem 'fakeweb'
+  gem "rspec"
+  gem "ZenTest"
+  gem "fakeweb"
 end
 
 group :development do
-  gem 'heroku'
-  gem 'ruby-debug'
+  gem "heroku"
+  gem "ruby-debug"
 end

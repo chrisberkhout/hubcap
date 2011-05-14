@@ -10,6 +10,7 @@ GEM
       launchy (>= 0.3.2)
       rest-client (~> 1.6.1)
       term-ansicolor (~> 1.0.5)
+    json (1.5.1)
     launchy (0.4.0)
       configuration (>= 0.0.5)
       rake (>= 0.8.1)
@@ -45,6 +46,7 @@ DEPENDENCIES
   ZenTest
   fakeweb
   heroku
+  json
   rspec
   ruby-debug
   sinatra

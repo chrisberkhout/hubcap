@@ -1,6 +1,6 @@
 require 'hubcap/hub_stats'
 require 'fakeweb'
-# require 'ruby-debug'
+require 'ruby-debug'
   
 module Hubcap
   describe HubStats do
@@ -29,12 +29,21 @@ module Hubcap
     end
 
     describe "#repos" do
+      before do
+        @repos = HubStats.new(:username => @username, :token => @token).repos
+      end
       it "should return a list of repos" do
+        @repos.class.should == Hash
+        @repos.length.should == 3
+        @repos.keys.sort.should == ["hubcap", "rag_deploy", "beeswax"].sort
+      end
+      it "should include public and private repos" do
+        privacy_values = @repos.values.map{ |r| r["private"] }
+        privacy_values.include?(true).should be_true
+        privacy_values.include?(false).should be_true
+      end
+      it "should include repo participation data" do
         pending
-        repos = HubStats.new(:username => @username, :token => @token).repos
-        repos.class.should == Hash
-        repos.length.should == 3
-        repos.keys.sort.should == ["hubcap", "rag_deploy", "beeswax"]
       end
     end
   
