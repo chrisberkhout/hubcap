@@ -13,7 +13,9 @@ module Hubcap
 
       repo_list_url = URI.parse("http://github.com/api/v2/json/repos/show/#{@username}")
       result = Net::HTTP.post_form(repo_list_url, @auth_params)
-      puts result.body
+      
+      
+      
       # process JSON to build @repos object
       
       # repo_participation_url = URI.parse("https://github.com/#{@username}/#{repo}/graphs/participation")
