@@ -2,6 +2,7 @@ source "http://rubygems.org"
 
 gem "json"
 gem "sinatra"
+gem "haml"
 
 group :development, :test do
   gem "rspec"

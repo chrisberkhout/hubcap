@@ -1,0 +1,16 @@
+!!!
+%html
+  %head
+    %title Hubcap
+  %body
+    %h1 Hubcap
+    %h2 A visual recap of your GitHub commits
+    %form
+      %p
+        %label{:for => "login"} GitHub user name
+        %input#login.text{:name => "login", :size => "30"}
+      %p
+        %label{:for => "token"} GitHub API token
+        %input#token.text{:name => "token", :size => "30"}
+      %p
+        %input#user_submit.submit{:type => "submit", :value => "Cap it!"}
