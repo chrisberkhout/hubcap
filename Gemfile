@@ -4,6 +4,7 @@ gem 'sinatra'
 
 group :development, :test do
   gem 'rspec'
+  gem 'ZenTest'
 end
 
 group :development do
