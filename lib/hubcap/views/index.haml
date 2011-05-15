@@ -5,7 +5,7 @@
   %body
     %h1 Hubcap
     %h2 A visual recap of your GitHub commits
-    %form
+    %form{:action => "/", :method => "post"}
       %p
         %label{:for => "login"} GitHub login
         %input#login.text{:name => "login", :size => "30"}
