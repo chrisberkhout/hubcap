@@ -5,7 +5,7 @@ require 'ruby-debug'
 module Hubcap
   describe HubStats do
     
-    USERNAME   = "chrisberkhout"
+    LOGIN      = "chrisberkhout"
     TOKEN      = "ef57c2ff4b4a75a2727e90927ebf52eb"
     REPO_NAMES = ["hubcap", "rag_deploy", "beeswax"]
 
@@ -14,36 +14,36 @@ module Hubcap
       FakeWeb.allow_net_connect = false
       
       FakeWeb.register_uri(
-        :any, "http://github.com:443/api/v2/json/repos/show/#{USERNAME}?page=1", 
-        :body => File.read("spec/resources/repos_show_#{USERNAME}_1.json")
+        :any, "http://github.com:443/api/v2/json/repos/show/#{LOGIN}?page=1", 
+        :body => File.read("spec/resources/repos_show_#{LOGIN}_1.json")
       )
       
       REPO_NAMES.each do |repo_name|
         FakeWeb.register_uri(
-          :any, "http://github.com:443/#{USERNAME}/#{repo_name}/graphs/participation", 
-          :body => File.read("spec/resources/participation_#{USERNAME}_#{repo_name}.base64")
+          :any, "http://github.com:443/#{LOGIN}/#{repo_name}/graphs/participation", 
+          :body => File.read("spec/resources/participation_#{LOGIN}_#{repo_name}.base64")
         )
       end
       
     end
 
     describe "#initialize" do
-      it "should be happy if there is a username" do
-        lambda { HubStats.new(:username => USERNAME) }.should_not raise_error
+      it "should be happy if there is a login" do
+        lambda { HubStats.new(:login => LOGIN) }.should_not raise_error
       end
-      it "should raise an error if the username is not specified" do
+      it "should raise an error if the login is not specified" do
         lambda { HubStats.new }.should raise_error
       end
       it "should use the api token if provided" do
-        HubStats.new(:username => USERNAME, :token => TOKEN)
+        HubStats.new(:login => LOGIN, :token => TOKEN)
         FakeWeb.last_request.body.split("&").include?("token=#{TOKEN}").should be_true
       end
     end
 
-    describe "#repos for #{USERNAME}" do
+    describe "#repos for #{LOGIN}" do
       
       before(:all) do
-        @repos = HubStats.new(:username => USERNAME, :token => TOKEN).repos
+        @repos = HubStats.new(:login => LOGIN, :token => TOKEN).repos
       end
       
       it "should return a list of repos" do
@@ -93,7 +93,7 @@ module Hubcap
       end
 
       it "should load a multi-page repo list" do
-        HubStats.new(:username => "drnic").repos.count.should == 168
+        HubStats.new(:login => "drnic").repos.count.should == 168
       end
 
     end  
