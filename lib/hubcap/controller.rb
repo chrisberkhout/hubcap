@@ -1,9 +1,9 @@
-set :views, Proc.new { File.join(root, "hubcap/views") }
-
+set :views,  Proc.new { File.join(root, "hubcap/views") }
+set :public, Proc.new { File.join(root, "hubcap/public") }
+   
 respond = lambda do
 
   # if request.env['REQUEST_METHOD'] == 'POST'; end
-
   if params[:login].nil? || params[:login].empty?
     
     if params.length > 0
@@ -16,6 +16,7 @@ respond = lambda do
     haml :report
 
   end
+  
 end
 
 get  '/', &respond
