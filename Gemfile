@@ -1,5 +1,7 @@
 source "http://rubygems.org"
 
+gem "activesupport"
+gem "i18n" # required by activesupport
 gem "json"
 gem "sinatra"
 gem "haml"

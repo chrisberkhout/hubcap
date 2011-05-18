@@ -9,7 +9,7 @@ module Hubcap
     attr_accessor :repos
     
     def initialize(opts)
-      
+
       @login = opts[:login] || raise("No login provided!")
       @auth_params = { 'login' => @login }
       @auth_params['token'] = opts[:token] if opts[:token]
