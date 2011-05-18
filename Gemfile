@@ -2,6 +2,7 @@ source "http://rubygems.org"
 
 gem "activesupport"
 gem "i18n" # required by activesupport
+gem "httparty"
 gem "json"
 gem "sinatra"
 gem "haml"

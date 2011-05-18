@@ -1,9 +1,8 @@
-require 'hubcap/hub_stats'
+require 'hubcap/git_hub'
 require 'fakeweb'
-require 'ruby-debug'
   
 module Hubcap
-  describe HubStats do
+  describe GitHub do
     
     LOGIN      = "chrisberkhout"
     TOKEN      = "ef57c2ff4b4a75a2727e90927ebf52eb"
@@ -14,13 +13,13 @@ module Hubcap
       FakeWeb.allow_net_connect = false
       
       FakeWeb.register_uri(
-        :any, "http://github.com:443/api/v2/json/repos/show/#{LOGIN}?page=1", 
+        :any, "https://github.com/api/v2/json/repos/show/#{LOGIN}?page=1", 
         :body => File.read("spec/resources/repos_show_#{LOGIN}_1.json")
       )
       
       REPO_NAMES.each do |repo_name|
         FakeWeb.register_uri(
-          :any, "http://github.com:443/#{LOGIN}/#{repo_name}/graphs/participation", 
+          :any, "https://github.com/#{LOGIN}/#{repo_name}/graphs/participation", 
           :body => File.read("spec/resources/participation_#{LOGIN}_#{repo_name}.base64")
         )
       end
@@ -29,13 +28,13 @@ module Hubcap
 
     describe "#initialize" do
       it "should be happy if there is a login" do
-        lambda { HubStats.new(:login => LOGIN) }.should_not raise_error
+        lambda { GitHub.new(:login => LOGIN) }.should_not raise_error
       end
       it "should raise an error if the login is not specified" do
-        lambda { HubStats.new }.should raise_error
+        lambda { GitHub.new }.should raise_error
       end
       it "should use the api token if provided" do
-        HubStats.new(:login => LOGIN, :token => TOKEN)
+        GitHub.new(:login => LOGIN, :token => TOKEN).repos
         FakeWeb.last_request.body.split("&").include?("token=#{TOKEN}").should be_true
       end
     end
@@ -43,7 +42,7 @@ module Hubcap
     describe "#repos for #{LOGIN}" do
       
       before(:all) do
-        @repos = HubStats.new(:login => LOGIN, :token => TOKEN).repos
+        @repos = GitHub.new(:login => LOGIN, :token => TOKEN).repos
       end
       
       it "should return a list of repos" do
@@ -75,25 +74,25 @@ module Hubcap
       before(:all) do
         
         FakeWeb.register_uri(
-          :any, "http://github.com:443/api/v2/json/repos/show/drnic?page=1", 
+          :any, "https://github.com/api/v2/json/repos/show/drnic?page=1", 
           :body => File.read("spec/resources/repos_show_drnic_1.json"),
           :x_next => "https://github.com/api/v2/json/repos/show/drnic?page=2"
         )
         
         FakeWeb.register_uri(
-          :any, "http://github.com:443/api/v2/json/repos/show/drnic?page=2", 
+          :any, "https://github.com/api/v2/json/repos/show/drnic?page=2", 
           :body => File.read("spec/resources/repos_show_drnic_2.json")
         )
         
         FakeWeb.register_uri(
-          :any, %r|http\://github\.com\:443/drnic/.*?/graphs/participation|, 
+          :any, %r|https\://github\.com/drnic/.*?/graphs/participation|, 
           :body => File.read("spec/resources/participation_drnic_all.base64")
         )
         
       end
 
       it "should load a multi-page repo list" do
-        HubStats.new(:login => "drnic").repos.count.should == 168
+        GitHub.new(:login => "drnic").repos.count.should == 168
       end
 
     end  

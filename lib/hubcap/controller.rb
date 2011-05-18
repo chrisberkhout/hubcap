@@ -15,7 +15,7 @@ module Hubcap
     
     else
 
-      @repos = HubStats.new(params.slice("login", "token").symbolize_keys).repos
+      @repos = GitHub.new(params.slice("login", "token").symbolize_keys).repos
       haml :report
 
     end
