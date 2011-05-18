@@ -15,7 +15,6 @@ module Hubcap
     
     def repos(options={})
       options.merge!({:body => @auth_params})
-      
       repos = []
       next_url = "/api/v2/json/repos/show/#{@auth_params['login']}?page=1"
       while next_url
@@ -23,15 +22,22 @@ module Hubcap
         repos += JSON.parse(response.body)["repositories"]
         next_url = response.headers['x-next']
       end
-
-      repos.each_with_index do |repo, index|
+      repos
+    end
+    
+    def repos_with_participation(options={})
+      all_repos = self.repos(options)
+      options.merge!({:body => @auth_params})
+      repos_with_participation = []
+      all_repos[0..19].each do |repo|
         response = self.class.post("/#{@auth_params['login']}/#{repo['name']}/graphs/participation", options)
         owner_commits = response.body.split(/[\r\n]+/)[1]
         owner_commits.length == (52 * 2) || raise("Bad participation data for #{repo['name']}.")
-        repos[index]["participation"] = owner_commits.scan(/../).map{ |code| base64_to_int(code) }
+        repo["participation"] = owner_commits.scan(/../).map{ |code| base64_to_int(code) }
+        repos_with_participation.push(repo)
       end
-
-      repos.reduce({}) { |hash, repo| hash[repo["name"]] = repo; hash }
+      repos_with_participation
+      # repos.reduce({}) { |hash, repo| hash[repo["name"]] = repo; hash }
     end
     
     protected

@@ -46,29 +46,29 @@ module Hubcap
     describe "#repos for #{LOGIN}" do
       
       before(:all) do
-        @repos = GitHub.new(:login => LOGIN, :token => TOKEN).repos
+        @repos_with_participation = GitHub.new(:login => LOGIN, :token => TOKEN).repos_with_participation
       end
       
       it "should return a list of repos" do
-        @repos.class.should == Hash
-        @repos.length.should == 3
-        @repos.keys.sort.should == REPO_NAMES.sort
+        @repos_with_participation.class.should == Array
+        @repos_with_participation.length.should == 3
+        @repos_with_participation.map{|r| r['name'] }.sort.should == REPO_NAMES.sort
       end
       
       it "should include public and private repos" do
-        privacy_values = @repos.values.map{ |r| r["private"] }
+        privacy_values = @repos_with_participation.map{ |r| r["private"] }
         privacy_values.include?(true).should be_true
         privacy_values.include?(false).should be_true
       end
       
       it "should include participation data for public repos" do
-        @repos["hubcap"]["participation"].length.should == 52
-        @repos["hubcap"]["participation"][-1].should == 3
+        @repos_with_participation.select{ |r| r['name'] == "hubcap" }.first["participation"].length.should == 52
+        @repos_with_participation.select{ |r| r['name'] == "hubcap" }.first["participation"][-1].should == 3
       end
       
       it "should include participation data for private repos" do
-        @repos["beeswax"]["participation"].length.should == 52
-        @repos["beeswax"]["participation"][14].should == 1
+        @repos_with_participation.select{ |r| r['name'] == "beeswax" }.first["participation"].length.should == 52
+        @repos_with_participation.select{ |r| r['name'] == "beeswax" }.first["participation"][14].should == 1
       end
       
     end
@@ -97,6 +97,15 @@ module Hubcap
 
       it "should load a multi-page repo list" do
         GitHub.new(:login => "drnic").repos.count.should == 168
+      end
+      
+      it "should only get participation data for 20 repos" do
+        GitHub.new(:login => "drnic").repos_with_participation.count.should == 20
+      end
+
+      it "should participation data for the 20 repos most recently pushed to" do
+        pending
+        GitHub.new(:login => "drnic").repos_with_participation.map{|r| r['name'] }.sort.should == ["Chef.tmbundle", "FakeWeb.tmbundle", "ci_demo_app", "ci_demo_app2", "ci_demo_app3", "docrails", "em-synchrony", "fat_free_crm", "grape_test_app", "queue_classic", "rails_wizard.web", "railsapp-vagrant", "red-dirt-workers-tutorial", "redcar", "sinatra-synchrony", "sinatra-synchrony-example", "svruby-awards", "test_edge_rails", "todolist-app", "todolist-webinar"]
       end
 
     end  
