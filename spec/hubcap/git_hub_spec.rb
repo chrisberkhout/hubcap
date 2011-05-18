@@ -37,6 +37,10 @@ module Hubcap
         GitHub.new(:login => LOGIN, :token => TOKEN).repos
         FakeWeb.last_request.body.split("&").include?("token=#{TOKEN}").should be_true
       end
+      it "should ignore api token if it is empty" do
+        GitHub.new(:login => LOGIN, :token => "").repos
+        FakeWeb.last_request.body.split("&").include?("token=").should be_false
+      end
     end
 
     describe "#repos for #{LOGIN}" do

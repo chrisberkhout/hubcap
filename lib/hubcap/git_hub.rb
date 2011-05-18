@@ -10,7 +10,7 @@ module Hubcap
     def initialize(options={})
       login = options[:login] || raise("No login provided!")
       @auth_params = { 'login' => login }
-      @auth_params['token'] = options[:token] if options[:token]
+      @auth_params['token'] = options[:token] if options[:token] && !options[:token].empty?
     end
     
     def repos(options={})
