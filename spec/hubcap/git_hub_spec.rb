@@ -103,9 +103,8 @@ module Hubcap
         GitHub.new(:login => "drnic").repos_with_participation.count.should == 20
       end
 
-      it "should participation data for the 20 repos most recently pushed to" do
-        pending
-        GitHub.new(:login => "drnic").repos_with_participation.map{|r| r['name'] }.sort.should == ["Chef.tmbundle", "FakeWeb.tmbundle", "ci_demo_app", "ci_demo_app2", "ci_demo_app3", "docrails", "em-synchrony", "fat_free_crm", "grape_test_app", "queue_classic", "rails_wizard.web", "railsapp-vagrant", "red-dirt-workers-tutorial", "redcar", "sinatra-synchrony", "sinatra-synchrony-example", "svruby-awards", "test_edge_rails", "todolist-app", "todolist-webinar"]
+      it "should get participation data for the 20 repos most recently pushed to" do
+        GitHub.new(:login => "drnic").repos_with_participation.map{|r| r['name'] }.sort.should == ["FakeWeb.tmbundle", "em-synchrony", "sinatra-synchrony", "sinatra-synchrony-example", "rails_wizard.web", ".dotfiles", "redcar", "red-dirt-workers-tutorial", "svruby-awards", "queue_classic", "test_edge_rails", "magic_multi_connections", "ci_demo_app", "rubigen", "tabtab", "todolist-webinar", "todolist-app", "composite_primary_keys", "docrails", "grape_test_app"].sort
       end
 
     end  

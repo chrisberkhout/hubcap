@@ -27,6 +27,7 @@ module Hubcap
     
     def repos_with_participation(options={})
       all_repos = self.repos(options)
+      all_repos.sort!{|x,y| y['pushed_at'] <=> x['pushed_at'] }
       options.merge!({:body => @auth_params})
       repos_with_participation = []
       all_repos[0..19].each do |repo|
@@ -37,7 +38,6 @@ module Hubcap
         repos_with_participation.push(repo)
       end
       repos_with_participation
-      # repos.reduce({}) { |hash, repo| hash[repo["name"]] = repo; hash }
     end
     
     protected
