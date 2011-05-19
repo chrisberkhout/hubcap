@@ -4,12 +4,13 @@
     %title Hubcap
     %link{:type => "text/css", :rel => "stylesheet", :href => "stylesheets/style.css"}
     %script{:type => "text/javascript", :src => "javascripts/protovis-r3.2.js"}
-
+    %script{:type => "text/javascript"}="var data = #{[@data[5]['participation']].to_json};"
+      
   %body
     %h1 Hubcap
     %h2 A visual recap of your GitHub commits
 
     %script{:type => "text/javascript", :src => "javascripts/chart.js"}
 
-    %code= @data.inspect
+    %code= [@data[5]['participation']].to_json
     
