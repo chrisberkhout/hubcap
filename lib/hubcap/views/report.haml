@@ -10,7 +10,5 @@
     %h1 Hubcap
     %h2 A visual recap of your GitHub commits
 
-    %script{:type => "text/javascript", :src => "javascripts/chart.js"}
-
-    %code= @data.to_json
-    
+    .chart
+      %script{:type => "text/javascript", :src => "javascripts/chart.js"}
