@@ -107,6 +107,14 @@ module Hubcap
         GitHub.new(:login => "drnic").repos_with_participation.map{|r| r['name'] }.sort.should == ["FakeWeb.tmbundle", "em-synchrony", "sinatra-synchrony", "sinatra-synchrony-example", "rails_wizard.web", ".dotfiles", "redcar", "red-dirt-workers-tutorial", "svruby-awards", "queue_classic", "test_edge_rails", "magic_multi_connections", "ci_demo_app", "rubigen", "tabtab", "todolist-webinar", "todolist-app", "composite_primary_keys", "docrails", "grape_test_app"].sort
       end
 
+      it "should return repos with participation without any repos that have no commits" do
+        pending
+      end
+      
+      it "should return repos with participation sorted by first committed then first finished" do
+        pending
+      end
+
     end  
   
   end
