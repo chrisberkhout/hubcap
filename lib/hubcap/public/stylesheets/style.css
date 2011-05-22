@@ -1,3 +1,15 @@
 body {
   text-align: center;
 }
+
+.repolist {
+  display: inline-block;
+  text-align: left;
+}
+
+.colorbox {
+  display: block; 
+  float: left;
+  width: 1em;
+  height: 1em; 
+}

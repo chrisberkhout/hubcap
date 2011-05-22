@@ -12,3 +12,10 @@
 
     .chart
       %script{:type => "text/javascript", :src => "javascripts/chart.js"}
+
+    .repolist
+      %ol
+        - @data.sort{ |x,y| y['pushed_at'] <=> x['pushed_at'] }.each do |repo|
+          %li
+            %span.colorbox{:style => "background-color: #{repo['color']}"}
+            %a{:href => "https://github.com/#{params['login']}/#{repo['name']}"}= repo["name"]
