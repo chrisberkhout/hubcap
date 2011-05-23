@@ -11,6 +11,7 @@ group :development, :test do
   gem "rspec"
   gem "ZenTest"
   gem "fakeweb"
+  gem "rack-test"
 end
 
 group :development do

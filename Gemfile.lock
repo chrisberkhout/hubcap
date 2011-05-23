@@ -23,6 +23,8 @@ GEM
     linecache (0.43)
     mime-types (1.16)
     rack (1.2.2)
+    rack-test (0.5.7)
+      rack (>= 1.0)
     rake (0.8.7)
     rest-client (1.6.1)
       mime-types (>= 1.16)
@@ -57,6 +59,7 @@ DEPENDENCIES
   httparty
   i18n
   json
+  rack-test
   rspec
   ruby-debug
   sinatra
