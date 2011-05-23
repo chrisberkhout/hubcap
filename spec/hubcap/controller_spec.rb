@@ -1,20 +1,19 @@
 require 'hubcap'
-require 'rack/test'
-
-set :environment, :test
+require 'capybara'
+require 'capybara/dsl'
 
 # http://www.sinatrarb.com/testing.html
 
 describe Hubcap do
-  include Rack::Test::Methods
-
-  def app
-    Sinatra::Application
+  include Capybara
+  
+  before :all do
+    Capybara.app = Sinatra::Application.new
   end
 
-  it "Serves login page" do
-    get '/'
-    last_response.should be_ok
-    last_response.body[/GitHub login/].should be_true
+  it "should serve login page" do
+    visit '/'
+    page.should have_content('GitHub login')
   end
+  
 end
