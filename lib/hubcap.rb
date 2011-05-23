@@ -9,5 +9,4 @@ require 'sinatra'
 require 'haml'
 
 # app code
-require 'hubcap/git_hub'
 require 'hubcap/controller'

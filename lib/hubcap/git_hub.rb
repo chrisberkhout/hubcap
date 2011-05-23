@@ -2,6 +2,8 @@ require 'net/http'
 require 'httparty'
 require 'json'
 
+require 'hubcap/repo'
+
 module Hubcap
   class GitHub
     include HTTParty
@@ -19,7 +21,7 @@ module Hubcap
       next_url = "/api/v2/json/repos/show/#{@auth_params['login']}?page=1"
       while next_url
         response = self.class.post(next_url, options)
-        repos += JSON.parse(response.body)["repositories"]
+        repos += JSON.parse(response.body)["repositories"].map{ |r| Repo.new(r) }
         next_url = response.headers['x-next']
       end
       repos
@@ -37,20 +39,10 @@ module Hubcap
         repo["participation"] = owner_commits.scan(/../).map{ |code| base64_to_int(code) }
         repos_with_participation.push(repo)
       end
-      repos_with_participation = repos_with_participation.
-          select{ |r| r["participation"].inject(0){ |acc,i| acc+i } > 0 }.
-          sort_by{ |r| [first_commit_week(r), last_commit_week(r)] }
+      repos_with_participation
     end
     
     protected
-
-    def first_commit_week(repo)
-      repo["participation"].index{ |x| x != 0 }
-    end
-
-    def last_commit_week(repo)
-      (repo["participation"].length-1) - repo["participation"].reverse.index{ |x| x != 0 }
-    end
 
     def base64_to_int(input)
       table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!-"
