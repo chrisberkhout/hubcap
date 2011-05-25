@@ -5,6 +5,16 @@ require 'json'
 require 'hubcap/repo'
 
 module Hubcap
+  
+  # Scrapes repository and participation data from GitHub.
+  #
+  # The {#repos} and {#repos_with_participation} return arrays of {Repo} 
+  # objects.
+  #
+  # Decoding of base64 participation data is done here because it is 
+  # part of the scraping, but other logic related to repos (e.g. extracting
+  # data to sort on) is encapsulated in {Repo}.
+  #
   class GitHub
     include HTTParty
     base_uri "https://github.com"
