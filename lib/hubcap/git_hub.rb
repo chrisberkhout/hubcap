@@ -54,6 +54,9 @@ module Hubcap
     
     protected
 
+    # Decodes from "modified Base64 for regexps" to an array of integers.
+    # It was clear from GitHub's JavaScript that they are using this encoding.
+    # See: {http://en.wikipedia.org/wiki/Base64#Regular_expressions}
     def base64_to_int(input)
       table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!-"
       result = 0
