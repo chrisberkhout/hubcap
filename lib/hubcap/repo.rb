@@ -18,7 +18,7 @@ module Hubcap
 
     def last_commit_week
       ensure_has_participation_data
-      reversed_index = self["participation"].reverse.index{ |x| x != 0 } || -self["participation"].length
+      reversed_index = self["participation"].reverse.index{ |x| x != 0 } || -1
       (self["participation"].length-1) - reversed_index
     end
 
