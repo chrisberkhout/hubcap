@@ -42,7 +42,4 @@ describe "GitHub API (v2)" do
     JSON::Validator.validate!(@schema, body)
   end
   
-  # NOTE: Additional testing here is less important than for the participation data,
-  #       which unlinke repo data is not part of an official GitHub API.
-
 end
