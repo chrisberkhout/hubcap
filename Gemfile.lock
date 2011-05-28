@@ -32,6 +32,7 @@ GEM
       crack (= 0.1.8)
     i18n (0.5.0)
     json (1.5.1)
+    json-schema (0.9.4)
     json_pure (1.5.1)
     launchy (0.4.0)
       configuration (>= 0.0.5)
@@ -85,6 +86,7 @@ DEPENDENCIES
   httparty
   i18n
   json
+  json-schema
   rspec
   ruby-debug
   sinatra

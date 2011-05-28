@@ -12,6 +12,7 @@ group :development, :test do
   gem "ZenTest"
   gem "fakeweb"
   gem "capybara"
+  gem "json-schema"
 end
 
 group :development do
