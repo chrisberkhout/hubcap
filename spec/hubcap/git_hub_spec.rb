@@ -1,58 +1,41 @@
 require 'hubcap/git_hub'
 require 'fakeweb'
+require 'spec/helpers/fakeweb_helpers'
   
 module Hubcap
   describe GitHub do
     
-    LOGIN      = "chrisberkhout"
-    TOKEN      = "ef57c2ff4b4a75a2727e90927ebf52eb"
-    REPO_NAMES = ["hubcap", "rag_deploy", "beeswax"]
-
     before(:all) do
-      
-      FakeWeb.allow_net_connect = false
-      
-      FakeWeb.register_uri(
-        :any, "https://github.com/api/v2/json/repos/show/#{LOGIN}?page=1", 
-        :body => File.read("spec/resources/repos_show_#{LOGIN}_1.json")
-      )
-      
-      REPO_NAMES.each do |repo_name|
-        FakeWeb.register_uri(
-          :any, "https://github.com/#{LOGIN}/#{repo_name}/graphs/participation", 
-          :body => File.read("spec/resources/participation_#{LOGIN}_#{repo_name}.base64")
-        )
-      end
-      
+      @fw = fakeweb_chrisberkhout
     end
 
     describe "#initialize" do
       it "should be happy if there is a login" do
-        lambda { GitHub.new(:login => LOGIN) }.should_not raise_error
+        lambda { GitHub.new(:login => @fw[:login]) }.should_not raise_error
       end
       it "should raise an error if the login is not specified" do
         lambda { GitHub.new }.should raise_error
       end
       it "should use the api token if provided" do
-        GitHub.new(:login => LOGIN, :token => TOKEN).repos
-        FakeWeb.last_request.body.split("&").include?("token=#{TOKEN}").should be_true
+        GitHub.new(:login => @fw[:login], :token => @fw[:token]).repos
+        FakeWeb.last_request.body.split("&").include?("token=#{@fw[:token]}").should be_true
       end
       it "should ignore api token if it is empty" do
-        GitHub.new(:login => LOGIN, :token => "").repos
+        GitHub.new(:login => @fw[:login], :token => "").repos
         FakeWeb.last_request.body.split("&").include?("token=").should be_false
       end
     end
 
-    describe "#repos for #{LOGIN}" do
+    describe "#repos for chrisberkhout" do
       
       before(:all) do
-        @repos_with_participation = GitHub.new(:login => LOGIN, :token => TOKEN).repos_with_participation
+        @repos_with_participation = GitHub.new(:login => @fw[:login], :token => @fw[:token]).repos_with_participation
       end
       
       it "should return a list of repos" do
         @repos_with_participation.class.should == Array
         @repos_with_participation.length.should == 3
-        @repos_with_participation.map{|r| r['name'] }.sort.should == REPO_NAMES.sort
+        @repos_with_participation.map{|r| r['name'] }.sort.should == @fw[:repo_names].sort
       end
       
       it "should include public and private repos" do
