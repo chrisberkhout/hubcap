@@ -18,3 +18,8 @@
         %input#token.text{:name => "token", :size => "30"}
       %p
         %input#user_submit.submit{:type => "submit", :value => "Cap it!"}
+
+    - if @error
+      %p.error
+        There was an error loading data from GitHub!
+        Please confirm that you are using the correct login and (optional) API token.

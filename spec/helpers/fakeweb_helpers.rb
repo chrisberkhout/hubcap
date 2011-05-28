@@ -6,13 +6,13 @@ def fakeweb_init
 end
 
 def fakeweb_chrisberkhout
+  fakeweb_init
+
   data = {
     :login => "chrisberkhout",
     :token => "ef57c2ff4b4a75a2727e90927ebf52eb",
     :repo_names => ["hubcap", "rag_deploy", "beeswax"]
   }
-  
-  fakeweb_init
   
   FakeWeb.register_uri(
     :any, "https://github.com/api/v2/json/repos/show/#{data[:login]}?page=1", 
@@ -30,13 +30,13 @@ def fakeweb_chrisberkhout
 end
 
 def fakeweb_chrisberkhout_badcredentials
+  fakeweb_init
+
   data = {
     :login => "chrisberkhout",
     :loginwrong => "chrisberkhoutwrong",
     :badtoken => "wrong"
   }
-  
-  fakeweb_init
   
   FakeWeb.register_uri(
     :any, "https://github.com/api/v2/json/repos/show/#{data[:loginwrong]}?page=1", 

@@ -27,7 +27,6 @@ describe "Sinatra controller.rb" do
       find_button('user_submit').click
     end
     it "should return a message" do
-      pending
       page.current_path.should == "/"
       find_field 'GitHub login'
       find_field 'GitHub API token'
