@@ -1,6 +1,6 @@
 require 'hubcap/git_hub'
 
-module Hubcap
+module Hubcap::Controller
 
   set :views,  Proc.new { File.join(root, "hubcap/views") }
   set :public, Proc.new { File.join(root, "hubcap/public") }

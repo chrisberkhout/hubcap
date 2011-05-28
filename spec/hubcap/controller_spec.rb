@@ -5,7 +5,7 @@ require 'capybara/rspec'
 
 # http://www.sinatrarb.com/testing.html
 
-describe Hubcap do
+describe Hubcap::Controller do
   include Capybara
   
   before :all do
@@ -13,9 +13,9 @@ describe Hubcap do
   end
 
   it "should serve a form for entering github credentials" do
-    pending
     visit '/'
-    page.should have_content('GitHub login')
+    find_field('GitHub login')
+    find_field('GitHub API token')
   end
   
   context "with bad github credentials" do
