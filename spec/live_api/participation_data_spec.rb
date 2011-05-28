@@ -1,10 +1,12 @@
 require 'capybara'
 require 'capybara/dsl'
 require 'capybara/rspec'
+require 'spec/helpers/fakeweb_helpers'
 
 describe "GitHub API (unofficial)" do
 
   it "should return participation data in the expected Base64 encoding" do
+    fakeweb_disable
     lines = live_api_get_body("/chrisberkhout/hubcap/graphs/participation").split("\n")
     lines.length.should == 2
     lines.each do |line|

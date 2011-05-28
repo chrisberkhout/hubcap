@@ -80,10 +80,12 @@ module Hubcap
       end
       
       it "should only get participation data for 20 repos" do
+        pending # should spec case of failing after a certain number (not 20)
         GitHub.new(:login => "drnic").repos_with_participation.count.should == 20
       end
 
       it "should get participation data for the 20 repos most recently pushed to" do
+        pending # not necessarily 20, but they should be in order of most recently pushed to
         GitHub.new(:login => "drnic").repos_with_participation.map{|r| r['name'] }.sort.should == @data[:most_recently_pushed].sort
       end
     end  

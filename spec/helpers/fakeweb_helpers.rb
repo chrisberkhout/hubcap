@@ -5,6 +5,11 @@ def fakeweb_init
   FakeWeb.allow_net_connect = false
 end
 
+def fakeweb_disable
+  FakeWeb.clean_registry
+  FakeWeb.allow_net_connect = true
+end
+
 def fakeweb_chrisberkhout
   fakeweb_init
 

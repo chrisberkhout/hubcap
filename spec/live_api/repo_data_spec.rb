@@ -1,9 +1,11 @@
 require 'json-schema'
 require 'spec/helpers/live_api_helper'
+require 'spec/helpers/fakeweb_helpers'
 
 describe "GitHub API (v2)" do
   
   before :all do
+    fakeweb_disable
     @schema = {
       "type" => "object",
       "properties" => {
