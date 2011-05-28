@@ -3,8 +3,7 @@ require 'capybara'
 require 'capybara/dsl'
 require 'capybara/rspec'
 require 'spec/helpers/fakeweb_helpers'
-
-# http://www.sinatrarb.com/testing.html
+require 'ruby-debug'
 
 describe "Sinatra controller.rb" do
   include Capybara
@@ -29,6 +28,10 @@ describe "Sinatra controller.rb" do
     end
     it "should return a message" do
       pending
+      page.current_path.should == "/"
+      find_field 'GitHub login'
+      find_field 'GitHub API token'
+      page.should have_content("error")
     end
   end
   

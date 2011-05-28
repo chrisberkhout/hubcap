@@ -18,13 +18,35 @@ def fakeweb_chrisberkhout
     :any, "https://github.com/api/v2/json/repos/show/#{data[:login]}?page=1", 
     :body => File.read("spec/resources/repos_show_#{data[:login]}_1.json")
   )
-  
+
   data[:repo_names].each do |repo_name|
     FakeWeb.register_uri(
       :any, "https://github.com/#{data[:login]}/#{repo_name}/graphs/participation", 
       :body => File.read("spec/resources/participation_#{data[:login]}_#{repo_name}.base64")
     )
   end
+  
+  data
+end
+
+def fakeweb_chrisberkhout_badcredentials
+  data = {
+    :login => "chrisberkhout",
+    :loginwrong => "chrisberkhoutwrong",
+    :badtoken => "wrong"
+  }
+  
+  fakeweb_init
+  
+  FakeWeb.register_uri(
+    :any, "https://github.com/api/v2/json/repos/show/#{data[:loginwrong]}?page=1", 
+    :body => File.read("spec/resources/repos_show_#{data[:loginwrong]}_1.json")
+  )
+
+  FakeWeb.register_uri(
+    :any, "https://github.com/api/v2/json/repos/show/#{data[:login]+"badtoken"}?page=1", 
+    :body => File.read("spec/resources/repos_show_#{data[:login]}_1-badtoken.json")
+  )
   
   data
 end

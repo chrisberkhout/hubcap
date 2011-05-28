@@ -25,7 +25,7 @@ module Hubcap
       end
     end
 
-    describe "#repos for chrisberkhout" do
+    describe "#repos* for chrisberkhout" do
       before(:all) do
         @data = fakeweb_chrisberkhout
         @repos_with_participation = GitHub.new(:login => @data[:login], :token => @data[:token]).repos_with_participation
@@ -54,7 +54,23 @@ module Hubcap
       end
     end
     
-    describe "#repos for drnic" do
+    describe "#repos* for bad credentials" do
+      before(:all) do
+        @data = fakeweb_chrisberkhout_badcredentials
+      end
+      it "should return nil when given bad login" do
+        GitHub.new(:login => @data[:loginwrong]).repos.should be_nil
+        GitHub.new(:login => @data[:loginwrong]).repos_with_participation.should be_nil
+      end
+      it "should return nil when given bad token" do
+        GitHub.new(:login => @data[:login]+"badtoken", :token => @data[:badtoken]).repos.should be_nil
+        GitHub.new(:login => @data[:login]+"badtoken", :token => @data[:badtoken]).repos_with_participation.should be_nil
+      end
+      # NOTE: It is currently assumed that the login, token and repo names are
+      # correct if the repo names were successfully fetched with that login and token.
+    end
+    
+    describe "#repos* for drnic" do
       before(:all) do
         @data = fakeweb_drnic
       end
