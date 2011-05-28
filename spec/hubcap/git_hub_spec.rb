@@ -1,5 +1,4 @@
 require 'hubcap/git_hub'
-require 'fakeweb'
 require 'spec/helpers/fakeweb_helpers'
   
 module Hubcap

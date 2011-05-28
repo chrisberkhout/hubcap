@@ -1,3 +1,5 @@
+require 'fakeweb'
+
 def fakeweb_init
   FakeWeb.clean_registry
   FakeWeb.allow_net_connect = false
