@@ -22,7 +22,7 @@ describe "GitHub API (v2)" do
               "fork" => { "type" => "boolean", "required" => true },
               "has_issues" => { "type" => "boolean", "required" => true },
               "created_at" => { "type" => "string", "pattern" => %r|^\d{4}/\d\d/\d\d \d\d:\d\d:\d\d|, "required" => true },
-              "pushed_at" => { "type" => "string", "pattern" => %r|^\d{4}/\d\d/\d\d \d\d:\d\d:\d\d|, "required" => true },
+              "pushed_at" => { "type" => "string", "pattern" => %r|^\d{4}/\d\d/\d\d \d\d:\d\d:\d\d| }, # Intentionally not required, as observed missing in wild!
               "description" => { "type" => "string", "required" => true },
               "size" => { "type" => "integer", "required" => true },
               "private" => { "type" => "boolean", "required" => true },

@@ -11,6 +11,10 @@ module Hubcap
       super().merge!(data)
     end
 
+    def pushed_or_created_at
+      self["pushed_at"] || self["created_at"]
+    end
+
     def first_commit_week
       ensure_has_participation_data
       self["participation"].index{ |x| x != 0 } || self["participation"].length

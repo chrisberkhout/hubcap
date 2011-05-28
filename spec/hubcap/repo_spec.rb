@@ -8,6 +8,13 @@ module Hubcap
         Repo.new({:mykey => "myval"}).keys.should include :mykey
       end
     end
+
+    describe "#pushed_or_created_at" do
+      it "should return pushed_at if present, otherwise created_at" do
+        Repo.new({ "created_at" => "2010/12/26 22:17:59 -0800" }).pushed_or_created_at.should == "2010/12/26 22:17:59 -0800"
+        Repo.new({ "created_at" => "2010/12/07 14:55:46 -0800", "pushed_at" => "2010/12/12 21:51:31 -0800" }).pushed_or_created_at.should == "2010/12/12 21:51:31 -0800"
+      end
+    end
     
     describe "[first|last]_commit_week" do
       it "should ensure that there is valid participation data" do

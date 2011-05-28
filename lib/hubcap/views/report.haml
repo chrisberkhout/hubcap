@@ -26,7 +26,7 @@
 
     .repolist
       %ol
-        - @data.sort{ |x,y| y['pushed_at'] <=> x['pushed_at'] }.each do |repo|
+        - @data.sort{ |x,y| y.pushed_or_created_at <=> x.pushed_or_created_at }.each do |repo|
           %li
             %span.colorbox{:style => "background-color: #{repo['color']}"}
             %a{:href => "https://github.com/#{params['login']}/#{repo['name']}"}= repo["name"]

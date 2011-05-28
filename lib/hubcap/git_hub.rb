@@ -44,13 +44,13 @@ module Hubcap
     def repos_with_participation(options={})
       all_repos = self.repos(options)
       return nil if all_repos.nil?
-      all_repos.sort!{|x,y| y['pushed_at'] <=> x['pushed_at'] }
+      all_repos.sort!{|x,y| y.pushed_or_created_at <=> x.pushed_or_created_at }
       options.merge!({:body => @auth_params})
-      repos_with_participation = []
       # NOTE: Further testing showed the 20 repo limit to be unreliable.
       #       It is unclear by what rules the limit is enforced. For now this
       #       will just attempt to fetch participation for 20 repos, which
       #       will either succeed or fail.
+      repos_with_participation = []
       all_repos[0..19].each do |repo|
         begin
           response = self.class.post("/#{@auth_params['login']}/#{repo['name']}/graphs/participation", options)
