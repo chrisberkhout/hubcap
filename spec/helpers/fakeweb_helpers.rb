@@ -1,3 +1,7 @@
+def fakeweb_init
+  FakeWeb.clean_registry
+  FakeWeb.allow_net_connect = false
+end
 
 def fakeweb_chrisberkhout
   data = {
@@ -6,7 +10,7 @@ def fakeweb_chrisberkhout
     :repo_names => ["hubcap", "rag_deploy", "beeswax"]
   }
   
-  FakeWeb.allow_net_connect = false
+  fakeweb_init
   
   FakeWeb.register_uri(
     :any, "https://github.com/api/v2/json/repos/show/#{data[:login]}?page=1", 
@@ -24,5 +28,26 @@ def fakeweb_chrisberkhout
 end
 
 def fakeweb_drnic
+  fakeweb_init
   
+  FakeWeb.register_uri(
+    :any, "https://github.com/api/v2/json/repos/show/drnic?page=1", 
+    :body => File.read("spec/resources/repos_show_drnic_1.json"),
+    :x_next => "https://github.com/api/v2/json/repos/show/drnic?page=2"
+  )
+  
+  FakeWeb.register_uri(
+    :any, "https://github.com/api/v2/json/repos/show/drnic?page=2", 
+    :body => File.read("spec/resources/repos_show_drnic_2.json")
+  )
+  
+  FakeWeb.register_uri(
+    :any, %r|https\://github\.com/drnic/.*?/graphs/participation|, 
+    :body => File.read("spec/resources/participation_drnic_all.base64")
+  )
+  
+  data = {
+    :repo_count => 168,
+    :most_recently_pushed => ["FakeWeb.tmbundle", "em-synchrony", "sinatra-synchrony", "sinatra-synchrony-example", "rails_wizard.web", ".dotfiles", "redcar", "red-dirt-workers-tutorial", "svruby-awards", "queue_classic", "test_edge_rails", "magic_multi_connections", "ci_demo_app", "rubigen", "tabtab", "todolist-webinar", "todolist-app", "composite_primary_keys", "docrails", "grape_test_app"]
+  }
 end
