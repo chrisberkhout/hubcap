@@ -8,7 +8,7 @@ Online at: [hubcap.heroku.com](http://hubcap.heroku.com).
 After reading about ["Jerry Seinfeld's Productivity Secret"](http://lifehacker.com/281626/jerry-seinfelds-productivity-secret)
 I started taking more notice of the 52 week participation graphs on my GitHub
 repos. I knew my non-work coding activity has been cyclical and I thought that
-a visualisation covering all repos might help with becoming more consistent.
+a visualisation covering all repos might help me become more consistent.
 [Was I right?](http://hubcap.heroku.com/?login=chrisberkhout)
 
 ## Run it locally
