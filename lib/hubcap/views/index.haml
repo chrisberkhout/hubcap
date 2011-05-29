@@ -6,25 +6,36 @@
     %link{:type => "text/css", :rel => "stylesheet", :href => "stylesheets/style.css"}
 
   %body
-    %h1 Hubcap
-    %h2 A visual recap of your GitHub commits
+    .wrapper
+      %h1 Hubcap
+      %h2 A visual recap of your GitHub commits
 
-    %form{:action => "/", :method => "post"}
-      %table
-        %tr
-          %td.label
-            %label{:for => "login"} GitHub login
-          %td.input
-            %input#login.text{:name => "login", :size => "25"}
-        %tr
-          %td.label
-            %label{:for => "token"} GitHub API token
-          %td.input
-            %input#token.text{:name => "token", :size => "25"}
-      %p
-        %input#user_submit.submit{:type => "submit", :value => "Cap it!"}
+      %form{:action => "/", :method => "post"}
+        %table
+          %tr
+            %td.label
+              %label{:for => "login"} GitHub login
+            %td.input
+              %input#login.text{:name => "login", :size => "25"}
+          %tr
+            %td.label
+              %label{:for => "token"} Optional API token
+            %td.input
+              %input#token.text{:name => "token", :size => "25"}
+        %p
+          %input#user_submit.submit{:type => "submit", :value => "Show me"}
 
-    - if @error
-      %p.error
-        There was an error loading data from GitHub!
-        Please confirm that you are using the correct login and (optional) API token.
+      - if @error
+        %p.error
+          There was an error loading data from GitHub!
+          %br
+          Please confirm that you are using correct account details.
+          
+      .push
+
+    .footer
+      Hubcap visualises 52 week owner commit activity for multiple repositories in a GitHub account.
+      If you privide an API token, private repos will be included. 
+      It may take while to load.
+      The code is on
+      %a{:title => "Hubcap on GitHub", :href => "http://github.com/chrisberkhout/hubcap"} GitHub.
