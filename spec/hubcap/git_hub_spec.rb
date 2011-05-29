@@ -71,7 +71,7 @@ module Hubcap
     end
     
     describe "#repos* for drnic" do
-      before(:all) do
+      before(:each) do
         @data = fakeweb_drnic
       end
 
@@ -79,14 +79,21 @@ module Hubcap
         GitHub.new(:login => "drnic").repos.count.should == @data[:repo_count]
       end
       
-      it "should only get participation data for 20 repos" do
-        pending # should spec case of failing after a certain number (not 20)
+      it "should get participation data for a maximum of 20 repos" do
         GitHub.new(:login => "drnic").repos_with_participation.count.should == 20
       end
 
       it "should get participation data for the 20 repos most recently pushed to" do
-        pending # not necessarily 20, but they should be in order of most recently pushed to
         GitHub.new(:login => "drnic").repos_with_participation.map{|r| r['name'] }.sort.should == @data[:most_recently_pushed].sort
+      end
+    end
+
+    describe "#repos* for drnic (limited)" do
+      before(:each) do
+        @data = fakeweb_drnic(:limit_to => 16)
+      end
+      it "should successfully return participation data when github limits it to less than 20 repos" do
+        GitHub.new(:login => "drnic").repos_with_participation.map{|r| r['name'] }.sort.should == @data[:most_recently_pushed][0..15].sort
       end
     end  
   

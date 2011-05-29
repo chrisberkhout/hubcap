@@ -56,7 +56,7 @@ def fakeweb_chrisberkhout_badcredentials
   data
 end
 
-def fakeweb_drnic
+def fakeweb_drnic(options = {:limit_to => 20})
   fakeweb_init
   
   FakeWeb.register_uri(
@@ -72,7 +72,8 @@ def fakeweb_drnic
   
   FakeWeb.register_uri(
     :any, %r|https\://github\.com/drnic/.*?/graphs/participation|, 
-    :body => File.read("spec/resources/participation_drnic_all.base64")
+    [{:body => File.read("spec/resources/participation_drnic_all.base64"), :times => options[:limit_to]},
+     {:body => File.read("spec/resources/participation_drnic_limited.base64")}]
   )
   
   data = {
