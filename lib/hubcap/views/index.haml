@@ -10,12 +10,17 @@
     %h2 A visual recap of your GitHub commits
 
     %form{:action => "/", :method => "post"}
-      %p
-        %label{:for => "login"} GitHub login
-        %input#login.text{:name => "login", :size => "30"}
-      %p
-        %label{:for => "token"} GitHub API token
-        %input#token.text{:name => "token", :size => "30"}
+      %table
+        %tr
+          %td.label
+            %label{:for => "login"} GitHub login
+          %td.input
+            %input#login.text{:name => "login", :size => "25"}
+        %tr
+          %td.label
+            %label{:for => "token"} GitHub API token
+          %td.input
+            %input#token.text{:name => "token", :size => "25"}
       %p
         %input#user_submit.submit{:type => "submit", :value => "Cap it!"}
 
