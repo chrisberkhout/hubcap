@@ -18,15 +18,22 @@
     %script{:type => "text/javascript"}="var data = #{@data.to_json};"
       
   %body
-    %h1 Hubcap
-    %h2 A visual recap of your GitHub commits
+    #headings
+      %h1 Hubcap
+      %h2 A visual recap of your GitHub commits
+      %p.info= "52 week owner commits for <a href=\"https://github.com/#{params['login']}/\">#{params['login']}</a>'s repostories, including the #{@data.count} repositories pushed since XXXX-XX-XX, excluding the Y repositories last pushed previously."
 
-    .chart
+    #chart
       %script{:type => "text/javascript", :src => "javascripts/chart.js"}
 
     .repolist
-      %ol
+      %table
         - @data.sort{ |x,y| y.pushed_or_created_at <=> x.pushed_or_created_at }.each do |repo|
-          %li
-            %span.colorbox{:style => "background-color: #{repo['color']}"}
-            %a{:href => "https://github.com/#{params['login']}/#{repo['name']}"}= repo["name"]
+          %tr
+            %td
+              %span.colorbox{:style => "background-color: #{repo['color']}"}
+            %td
+              %a{:href => "https://github.com/#{params['login']}/#{repo['name']}"}= "#{repo['name']}"
+            / %td
+            /   XX commits, last pushed on YYYY-YY-YY.
+

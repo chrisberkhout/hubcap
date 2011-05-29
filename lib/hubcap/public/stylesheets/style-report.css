@@ -1,0 +1,58 @@
+
+body {
+  text-align: center;
+  font-family: "Trebuchet MS", verdana, sans-serif;
+}
+
+#headings {
+  padding-top: 15px;
+}
+
+h1 {
+  display: inline;
+  font-size: 80px;
+}
+h2 {
+  display: inline;
+  font-size: 25px;
+}
+
+#chart {
+  margin-top: 30px;
+  margin-bottom: 35px;
+}
+
+p.info {
+  font-size: 12px;
+  margin-top: 5px;
+  color: #888;
+}
+
+.repolist {
+  display: inline-block;
+  text-align: left;
+}
+.repolist a, .repolist a:visited {
+  color: #888;
+  text-decoration: none;
+  font-size: 13px;
+}
+.repolist a:hover {
+  text-decoration: underline;
+}
+
+
+.colorbox {
+  display: block; 
+  float: left;
+  width: 1em;
+  height: 1em; 
+}
+
+a, a:visited {
+  color: black;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
