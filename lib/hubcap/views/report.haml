@@ -1,13 +1,16 @@
 :ruby
 
-  # put the data in order for stacking on the chart
-  @data = @data.sort_by{ |r| [r.first_commit_week, r.last_commit_week] }
+  # sort for stacking on chart
+  @data_stack = @data.sort_by{ |r| [r.first_commit_week, r.last_commit_week] }
 
   # set colors
   protovis_category10 = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"]
   protovis_category20 = ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"]
   chosen_colors = @data.length <= 10 ? protovis_category10 : protovis_category20
-  @data.map!{ |r| r.merge({ "color" => chosen_colors.shift }) }
+  @data_stack.map!{ |r| r.merge({ "color" => chosen_colors.shift }) }
+
+  # sort for listing
+  @data_list  = @data_stack.sort{ |x,y| y.pushed_or_created_at <=> x.pushed_or_created_at }
 
 !!!
 %html
@@ -15,20 +18,20 @@
     %title Hubcap
     %link{:type => "text/css", :rel => "stylesheet", :href => "stylesheets/style-report.css"}
     %script{:type => "text/javascript", :src => "javascripts/protovis-r3.2.js"}
-    %script{:type => "text/javascript"}="var data = #{@data.to_json};"
+    %script{:type => "text/javascript"}="var data = #{@data_stack.to_json};"
       
   %body
     #headings
       %h1 Hubcap
       %h2 A visual recap of your GitHub commits
-      %p.info= "52 week owner commits for <a href=\"https://github.com/#{params['login']}/\">#{params['login']}</a>'s repostories, including the #{@data.count} repositories pushed since XXXX-XX-XX, excluding the Y repositories last pushed previously."
+      %p.info= "52 week owner commits for <a href=\"https://github.com/#{params['login']}/\">#{params['login']}</a>'s repostories, including the #{@data.count} repositories pushed since #{@data_list.last.pushed_or_created_at[0..9].gsub('/','-')}, excluding the #{@repo_count - @data.count} repositories last pushed previously."
 
     #chart
       %script{:type => "text/javascript", :src => "javascripts/chart.js"}
 
     .repolist
       %table
-        - @data.sort{ |x,y| y.pushed_or_created_at <=> x.pushed_or_created_at }.each do |repo|
+        - @data_list.each do |repo|
           %tr
             %td
               %span.colorbox{:style => "background-color: #{repo['color']}"}

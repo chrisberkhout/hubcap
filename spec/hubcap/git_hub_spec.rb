@@ -28,7 +28,8 @@ module Hubcap
     describe "#repos* for chrisberkhout" do
       before(:all) do
         @data = fakeweb_chrisberkhout
-        @repos_with_participation = GitHub.new(:login => @data[:login], :token => @data[:token]).repos_with_participation
+        @gh = GitHub.new(:login => @data[:login], :token => @data[:token])
+        @repos_with_participation = @gh.repos_with_participation
       end
       
       it "should return a list of repos" do
@@ -51,6 +52,13 @@ module Hubcap
       it "should include correctly decoded participation data for private repos" do
         @repos_with_participation.select{ |r| r['name'] == "beeswax" }.first["participation"].length.should == 52
         @repos_with_participation.select{ |r| r['name'] == "beeswax" }.first["participation"][14].should == 1
+      end
+      
+      it "should cache the repos and not attempt to refetch them every time #repos is called" do
+        fakeweb_init
+        old_request = FakeWeb.last_request
+        @gh.repos
+        FakeWeb.last_request.object_id.should == old_request.object_id
       end
     end
     

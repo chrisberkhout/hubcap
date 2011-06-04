@@ -26,19 +26,21 @@ module Hubcap
     end
     
     def repos(options={})
-      options.merge!({:body => @auth_params})
-      repos = []
-      next_url = "/api/v2/json/repos/show/#{@auth_params['login']}?page=1"
-      while next_url
-        begin
-          response = self.class.post(next_url, options)
-          repos += JSON.parse(response.body)["repositories"].map{ |r| Repo.new(r) }
-        rescue
-          return nil
+      unless @repos
+        options.merge!({:body => @auth_params})
+        @repos = []
+        next_url = "/api/v2/json/repos/show/#{@auth_params['login']}?page=1"
+        while next_url
+          begin
+            response = self.class.post(next_url, options)
+            @repos += JSON.parse(response.body)["repositories"].map{ |r| Repo.new(r) }
+          rescue
+            return @repos = nil
+          end
+          next_url = response.headers['x-next']
         end
-        next_url = response.headers['x-next']
       end
-      repos
+      @repos
     end
     
     def repos_with_participation(options={})
