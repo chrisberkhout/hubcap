@@ -1,9 +1,9 @@
 require 'hubcap/git_hub'
 
 module Hubcap
-
-  set :views,  Proc.new { File.join(root, "lib/hubcap/views") }
-  set :public, Proc.new { File.join(root, "lib/hubcap/public") }
+  
+  set :views,  File.join(File.expand_path(File.dirname(__FILE__)), "views")
+  set :public, File.join(File.expand_path(File.dirname(__FILE__)), "public")
    
   respond = lambda do
     
