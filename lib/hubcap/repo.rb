@@ -3,8 +3,6 @@ module Hubcap
   # Holding repository and participation data from GitHub in an extension of
   # {Hash} that encapsulates logic for extracting data relevant to sorting.
   #
-  # Scraping of this data is handled by {GitHub}.
-  #
   class Repo < Hash
     
     def initialize(data)
