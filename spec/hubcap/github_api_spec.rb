@@ -29,37 +29,33 @@ module Hubcap
       before(:all) do
         @data = fakeweb_chrisberkhout
         @gh = GithubAPI.new(:login => @data[:login], :token => @data[:token])
-        @repos_with_participation = @gh.repos_with_participation
+        @repos = @gh.repos
       end
       
       it "should return a list of repos" do
-        @repos_with_participation.class.should == Array
-        @repos_with_participation.length.should == 3
-        @repos_with_participation.map{|r| r['name'] }.sort.should == @data[:repo_names].sort
+        @repos.class.should == Array
+        @repos.length.should == 3
+        @repos.map{|r| r['name'] }.sort.should == @data[:repo_names].sort
       end
       
       it "should include public and private repos" do
-        privacy_values = @repos_with_participation.map{ |r| r["private"] }
+        privacy_values = @repos.map{ |r| r["private"] }
         privacy_values.include?(true).should be_true
         privacy_values.include?(false).should be_true
       end
       
       it "should include correctly decoded participation data for public repos" do
+        pending
         @repos_with_participation.select{ |r| r['name'] == "hubcap" }.first["participation"].length.should == 52
         @repos_with_participation.select{ |r| r['name'] == "hubcap" }.first["participation"][-1].should == 3
       end
       
       it "should include correctly decoded participation data for private repos" do
+        pending
         @repos_with_participation.select{ |r| r['name'] == "beeswax" }.first["participation"].length.should == 52
         @repos_with_participation.select{ |r| r['name'] == "beeswax" }.first["participation"][14].should == 1
       end
       
-      it "should cache the repos and not attempt to refetch them every time #repos is called" do
-        fakeweb_init
-        old_request = FakeWeb.last_request
-        @gh.repos
-        FakeWeb.last_request.object_id.should == old_request.object_id
-      end
     end
     
     describe "#repos* for bad credentials" do
@@ -67,10 +63,12 @@ module Hubcap
         @data = fakeweb_chrisberkhout_badcredentials
       end
       it "should return nil when given bad login" do
+        pending # now want to raise error
         GithubAPI.new(:login => @data[:loginwrong]).repos.should be_nil
         GithubAPI.new(:login => @data[:loginwrong]).repos_with_participation.should be_nil
       end
       it "should return nil when given bad token" do
+        pending # now want to raise error
         GithubAPI.new(:login => @data[:login]+"badtoken", :token => @data[:badtoken]).repos.should be_nil
         GithubAPI.new(:login => @data[:login]+"badtoken", :token => @data[:badtoken]).repos_with_participation.should be_nil
       end
@@ -88,10 +86,12 @@ module Hubcap
       end
       
       it "should get participation data for a maximum of 20 repos" do
+        pending
         GithubAPI.new(:login => "drnic").repos_with_participation.count.should == 20
       end
 
       it "should get participation data for the 20 repos most recently pushed to" do
+        pending
         GithubAPI.new(:login => "drnic").repos_with_participation.map{|r| r['name'] }.sort.should == @data[:most_recently_pushed].sort
       end
     end
@@ -101,6 +101,7 @@ module Hubcap
         @data = fakeweb_drnic(:limit_to => 16)
       end
       it "should successfully return participation data when GithubAPI limits it to less than 20 repos" do
+        pending
         GithubAPI.new(:login => "drnic").repos_with_participation.map{|r| r['name'] }.sort.should == @data[:most_recently_pushed][0..15].sort
       end
     end  
