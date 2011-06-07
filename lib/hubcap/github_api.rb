@@ -40,7 +40,7 @@ module Hubcap
       owner_commits.scan(/../).map{ |code| base64_to_int(code) }
     end
     
-    protected
+    private
 
     # Decodes from "modified Base64 for regexps" to an array of integers.
     # It was clear from GitHub's JavaScript that they are using this encoding.

@@ -24,7 +24,7 @@ module Hubcap
       (self["participation"].length-1) - reversed_index
     end
 
-    protected
+    private
     
     def ensure_has_participation_data
       raise "No participation data in repo #{self['name']}!" unless self["participation"]
