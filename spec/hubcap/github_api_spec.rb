@@ -8,7 +8,6 @@ module Hubcap
       before(:all) do
         @data = fakeweb_chrisberkhout
       end
-
       it "should be happy if there is a login" do
         lambda { GithubAPI.new(:login => @data[:login]) }.should_not raise_error
       end
@@ -31,13 +30,11 @@ module Hubcap
         @gh = GithubAPI.new(:login => @data[:login], :token => @data[:token])
         @repos = @gh.repos
       end
-      
       it "should return a list of repos" do
         @repos.class.should == Array
         @repos.length.should == 3
         @repos.map{|r| r['name'] }.sort.should == @data[:repo_names].sort
       end
-      
       it "should include public and private repos" do
         privacy_values = @repos.map{ |r| r["private"] }
         privacy_values.include?(true).should be_true
@@ -51,15 +48,14 @@ module Hubcap
         @gh = GithubAPI.new(:login => @data[:login], :token => @data[:token])
       end
       it "should fetch decoded participation data for a public repo" do
-        pending # ok
-        @repos_with_participation.select{ |r| r['name'] == "hubcap" }.first["participation"].length.should == 52
-        @repos_with_participation.select{ |r| r['name'] == "hubcap" }.first["participation"][-1].should == 3
+        participation = @gh.participation("hubcap")
+        participation.length.should == 52
+        participation[-1].should == 3
       end
-      
       it "should fetch correctly decoded participation data for a private repo" do
-        pending
-        @repos_with_participation.select{ |r| r['name'] == "beeswax" }.first["participation"].length.should == 52
-        @repos_with_participation.select{ |r| r['name'] == "beeswax" }.first["participation"][14].should == 1
+        participation = @gh.participation("beeswax")
+        participation.length.should == 52
+        participation[14].should == 1
       end
     end
     
@@ -68,14 +64,12 @@ module Hubcap
         @data = fakeweb_chrisberkhout_badcredentials
       end
       it "should return nil when given bad login" do
-        pending # now want to raise error
-        GithubAPI.new(:login => @data[:loginwrong]).repos.should be_nil
-        GithubAPI.new(:login => @data[:loginwrong]).repos_with_participation.should be_nil
+        lambda { GithubAPI.new(:login => @data[:loginwrong]).repos }.should raise_error
+        lambda { GithubAPI.new(:login => @data[:loginwrong]).participation('hubcap') }.should raise_error
       end
       it "should return nil when given bad token" do
-        pending # now want to raise error
-        GithubAPI.new(:login => @data[:login]+"badtoken", :token => @data[:badtoken]).repos.should be_nil
-        GithubAPI.new(:login => @data[:login]+"badtoken", :token => @data[:badtoken]).repos_with_participation.should be_nil
+        lambda { GithubAPI.new(:login => @data[:login]+"badtoken", :token => @data[:badtoken]).repos }.should raise_error
+        lambda { GithubAPI.new(:login => @data[:login]+"badtoken", :token => @data[:badtoken]).participation('hubcap') }.should raise_error
       end
       # NOTE: It is currently assumed that the login, token and repo names are
       # correct if the repo names were successfully fetched with that login and token.

@@ -27,7 +27,9 @@ module Hubcap
       next_url = "/api/v2/json/repos/show/#{@auth_params['login']}?page=1"
       while next_url
         response = self.class.post(next_url, {:body => @auth_params})
-        repos += JSON.parse(response.body)["repositories"]
+        data = JSON.parse(response.body)
+        raise ("Unexpected JSON repo data (#{data.inspect}).") unless data["repositories"]
+        repos += data["repositories"]
         next_url = response.headers['x-next']
       end
       repos
