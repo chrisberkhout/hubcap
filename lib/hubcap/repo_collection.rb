@@ -27,7 +27,7 @@ module Hubcap
     end
 
     def without_participation
-      reject{ |r| !r["participation"].nil? } # select would return an Array instead of RepoCollection!
+      reject{ |r| !r["participation"].nil? } # RepoCollection#select would return an Array instead of RepoCollection!
     end
     
     # stats & date aggregates:

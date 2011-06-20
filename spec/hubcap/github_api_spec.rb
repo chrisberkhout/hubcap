@@ -25,7 +25,7 @@ module Hubcap
       end
     end
 
-    describe "#repos* for chrisberkhout" do
+    describe "#repos for chrisberkhout" do
       before(:all) do
         @data = fakeweb_chrisberkhout
         @gh = GithubAPI.new(:login => @data[:login], :token => @data[:token])
@@ -43,22 +43,27 @@ module Hubcap
         privacy_values.include?(true).should be_true
         privacy_values.include?(false).should be_true
       end
+    end
       
-      it "should include correctly decoded participation data for public repos" do
-        pending
+    describe "#participation for chrisberkhout" do
+      before(:all) do
+        @data = fakeweb_chrisberkhout
+        @gh = GithubAPI.new(:login => @data[:login], :token => @data[:token])
+      end
+      it "should fetch decoded participation data for a public repo" do
+        pending # ok
         @repos_with_participation.select{ |r| r['name'] == "hubcap" }.first["participation"].length.should == 52
         @repos_with_participation.select{ |r| r['name'] == "hubcap" }.first["participation"][-1].should == 3
       end
       
-      it "should include correctly decoded participation data for private repos" do
+      it "should fetch correctly decoded participation data for a private repo" do
         pending
         @repos_with_participation.select{ |r| r['name'] == "beeswax" }.first["participation"].length.should == 52
         @repos_with_participation.select{ |r| r['name'] == "beeswax" }.first["participation"][14].should == 1
       end
-      
     end
     
-    describe "#repos* for bad credentials" do
+    describe "#repos with bad credentials" do
       before(:all) do
         @data = fakeweb_chrisberkhout_badcredentials
       end
@@ -76,35 +81,12 @@ module Hubcap
       # correct if the repo names were successfully fetched with that login and token.
     end
     
-    describe "#repos* for drnic" do
-      before(:each) do
-        @data = fakeweb_drnic
-      end
-
+    describe "#repos for drnic" do
       it "should load a multi-page repo list" do
+        @data = fakeweb_drnic
         GithubAPI.new(:login => "drnic").repos.count.should == @data[:repo_count]
       end
-      
-      it "should get participation data for a maximum of 20 repos" do
-        pending
-        GithubAPI.new(:login => "drnic").repos_with_participation.count.should == 20
-      end
-
-      it "should get participation data for the 20 repos most recently pushed to" do
-        pending
-        GithubAPI.new(:login => "drnic").repos_with_participation.map{|r| r['name'] }.sort.should == @data[:most_recently_pushed].sort
-      end
     end
-
-    describe "#repos* for drnic (limited)" do
-      before(:each) do
-        @data = fakeweb_drnic(:limit_to => 16)
-      end
-      it "should successfully return participation data when GithubAPI limits it to less than 20 repos" do
-        pending
-        GithubAPI.new(:login => "drnic").repos_with_participation.map{|r| r['name'] }.sort.should == @data[:most_recently_pushed][0..15].sort
-      end
-    end  
   
   end
 end
