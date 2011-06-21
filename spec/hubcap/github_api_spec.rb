@@ -50,7 +50,7 @@ module Hubcap
       it "should fetch decoded participation data for a public repo" do
         participation = @gh.participation("hubcap")
         participation.length.should == 52
-        participation[-1].should == 3
+        participation[-3].should == 3
       end
       it "should fetch correctly decoded participation data for a private repo" do
         participation = @gh.participation("beeswax")

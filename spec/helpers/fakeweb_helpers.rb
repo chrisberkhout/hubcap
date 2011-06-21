@@ -16,7 +16,9 @@ def fakeweb_chrisberkhout
   data = {
     :login => "chrisberkhout",
     :token => "ef57c2ff4b4a75a2727e90927ebf52eb",
-    :repo_names => ["hubcap", "rag_deploy", "beeswax"]
+    :repo_names => ["hubcap", "rag_deploy", "beeswax"],
+    :last_pushed_desc => ["hubcap", "rag_deploy", "beeswax"],
+    :first_commit_then_last_commit => ["beeswax", "hubcap", "rag_deploy"]
   }
   
   FakeWeb.register_uri(
