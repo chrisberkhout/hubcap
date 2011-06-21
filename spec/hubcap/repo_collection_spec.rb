@@ -1,31 +1,42 @@
 require 'hubcap/repo_collection'
+require 'spec/helpers/fakeweb_helpers'
   
 module Hubcap
   describe RepoCollection do
     
     describe "#initialize" do
       it "should return with an object containing data on repos" do
-        pending
+        @data = fakeweb_chrisberkhout
+        lambda { @repos = RepoCollection.new(:login => @data[:login], :token => @data[:token]) }.should_not raise_error
+        @repos.length.should == 3
+        @repos.each{ |repo| repo.class.should == Repo }
       end
-
+      
       context "with drnic's login" do
         it "should get participation data for a maximum of 20 repos" do
-          pending
-          GithubAPI.new(:login => "drnic").repos_with_participation.count.should == 20
+          fakeweb_drnic
+          gh = GithubAPI.new(:login => "drnic")
+          gh.should_receive(:participation).at_most(20).times
+          GithubAPI.should_receive(:new).and_return(gh)
+          RepoCollection.new(:login => 'drnic')
         end
         it "should get participation data for the 20 repos most recently pushed to" do
-          pending
-          GithubAPI.new(:login => "drnic").repos_with_participation.map{|r| r['name'] }.sort.should == @data[:most_recently_pushed].sort
+          data = fakeweb_drnic
+          RepoCollection.new(:login => 'drnic').with_participation.map{|r| r['name'] }.sort.should == data[:most_recently_pushed].sort
         end
         it "should successfully return participation data when GithubAPI limits it to less than 20 repos" do
-          pending
-          @data = fakeweb_drnic(:limit_to => 16)
-          GithubAPI.new(:login => "drnic").repos_with_participation.map{|r| r['name'] }.sort.should == @data[:most_recently_pushed][0..15].sort
+          data = fakeweb_drnic(:limit_to => 16)
+          RepoCollection.new(:login => 'drnic').with_participation.map{|r| r['name'] }.sort.should == data[:most_recently_pushed][0..15].sort
         end
       end
       
       it "should set colours" do
-        pending
+        data = fakeweb_chrisberkhout
+        repos = RepoCollection.new(:login => data[:login], :token => data[:token])
+        repos.with_participation.count.should > 0
+        repos.without_participation.each do |repo|
+          repo["color"].should_not be_nil
+        end
       end
     end
     
