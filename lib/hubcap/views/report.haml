@@ -10,7 +10,11 @@
     #headings
       %h1 Hubcap
       %h2 A visual recap of your GitHub commits
-      %p.info= "52 week owner commits for <a href=\"https://github.com/#{params['login']}/\">#{params['login']}</a>'s repostories, including the #{@repos.with_participation.count} repositories pushed since @data_list.last.pushed_or_created_at[0..9].gsub('/','-'), excluding the #{@repos.without_participation.count} repositories last pushed previously."
+      - info  = "52 week owner commits for <a href=\"https://github.com/#{params['login']}/\">#{params['login']}</a>'s repostories"
+      - info += ", covering the #{@repos.with_participation.count} repositories pushed in the last #{@repos.weeks_of_full_data} weeks"
+      - info += ", excluding the #{@repos.without_participation.count} repositories last pushed previously" if @repos.without_participation.count > 0
+      - info += "."
+      %p.info= info
 
     #chart
       %script{:type => "text/javascript", :src => "javascripts/chart.js"}
