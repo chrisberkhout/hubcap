@@ -1,4 +1,5 @@
 require 'hubcap/github_api'
+require 'ruby-debug'
 
 module Hubcap
   class RepoCollection < Array
@@ -29,10 +30,22 @@ module Hubcap
     def without_participation
       reject{ |r| !r["participation"].nil? } # RepoCollection#select would return an Array instead of RepoCollection!
     end
+
+    def weeks_of_full_data
+      earliest_push = with_participation.by_last_pushed_desc.last.pushed_or_created_at
+      seconds_since_earliest_push = Time.now - Time.parse(earliest_push)
+      (seconds_since_earliest_push / 60 / 60 / 24 / 7).floor
+    end
+
+    def weeks_of_full_data
+      earliest_last_push = with_participation.by_last_pushed_desc.last.pushed_or_created_at
+      seconds_of_full_data = Time.now - Time.parse(earliest_last_push)
+      (seconds_of_full_data / 60 / 60 / 24 / 7).floor
+    end
     
-    # stats & date aggregates:
-      # weeks covered with participation
-      # date of last push or create for least recently pushed/created repo with participation
+    def weeks_of_partial_data
+      52 - weeks_of_full_data
+    end
 
     private
     

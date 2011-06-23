@@ -79,5 +79,20 @@ module Hubcap
       end
     end
   
+    describe "#weeks_of_full_data" do
+      it "should give the number of weeks with full data" do
+        fakeweb_drnic
+        repos = RepoCollection.new(:login => 'drnic')
+        repos.weeks_of_full_data.should == 18
+      end
+    end
+    describe "#weeks_of_partial_data" do
+      it "should give the number of weeks with partial data" do
+        fakeweb_drnic
+        repos = RepoCollection.new(:login => 'drnic')
+        repos.weeks_of_partial_data.should == 52 - repos.weeks_of_full_data
+      end
+    end
+  
   end
 end
