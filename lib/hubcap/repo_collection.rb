@@ -1,5 +1,4 @@
 require 'hubcap/github_api'
-require 'ruby-debug'
 
 module Hubcap
   class RepoCollection < Array
