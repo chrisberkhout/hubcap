@@ -19,11 +19,16 @@
     #chart
       %script{:type => "text/javascript", :src => "javascripts/chart.js"}
 
-    .repolist
+    #legend
       %table
-        - @repos.with_participation.by_last_pushed_desc.each do |repo|
+        - repos_for_table = @repos.with_participation.by_last_pushed_desc
+        - row_count = (repos_for_table.count / 3.0).ceil
+        - table_indexes = (0..(repos_for_table.count-1)).group_by{ |i| i % row_count }.values.sort
+        - table_indexes.each do |row_indexes|
           %tr
-            %td
-              %span.colorbox{:style => "background-color: #{repo['color']}"}
-            %td
-              %a{:href => "https://github.com/#{params['login']}/#{repo['name']}"}= "#{repo['name']}"
+            - row_indexes.each do |i|
+              - if i
+                %td
+                  %span.colorbox{:style => "background-color: #{repos_for_table[i]['color']}"}
+                %td.reponame
+                  %a{:href => "https://github.com/#{params['login']}/#{repos_for_table[i]['name']}"}= "#{repos_for_table[i]['name']}"

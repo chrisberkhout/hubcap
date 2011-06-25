@@ -2,51 +2,7 @@
 body {
   text-align: center;
   font-family: "Trebuchet MS", verdana, sans-serif;
-}
-
-#headings {
-  padding-top: 15px;
-}
-
-h1 {
-  display: inline;
-  font-size: 80px;
-}
-h2 {
-  display: inline;
-  font-size: 25px;
-}
-
-#chart {
-  margin-top: 30px;
-  margin-bottom: 35px;
-}
-
-p.info {
-  font-size: 12px;
-  margin-top: 5px;
-  color: #888;
-}
-
-.repolist {
-  display: inline-block;
-  text-align: left;
-}
-.repolist a, .repolist a:visited {
-  color: #888;
-  text-decoration: none;
   font-size: 13px;
-}
-.repolist a:hover {
-  text-decoration: underline;
-}
-
-
-.colorbox {
-  display: block; 
-  float: left;
-  width: 1em;
-  height: 1em; 
 }
 
 a, a:visited {
@@ -55,4 +11,48 @@ a, a:visited {
 }
 a:hover {
   text-decoration: underline;
+}
+
+
+#headings {
+  padding-top: 15px;
+}
+#headings h1 {
+  display: inline;
+  font-size: 80px;
+}
+#headings h2 {
+  display: inline;
+  font-size: 25px;
+}
+#headings p.info {
+  margin-top: 5px;
+  color: #888;
+}
+
+
+#chart {
+  margin-top: 40px;
+  margin-bottom: 55px;
+}
+
+
+#legend {
+  display: inline-block;
+  text-align: left;
+}
+
+#legend a, #legend a:visited {
+  color: #888;
+}
+
+#legend .colorbox {
+  display: block; 
+  float: left;
+  width: 15px;
+  height: 15px; 
+}
+
+#legend td.reponame {
+  width: 170px;
 }
