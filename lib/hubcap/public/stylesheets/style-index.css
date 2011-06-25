@@ -1,9 +1,14 @@
 * {
 	margin: 0;
 }
+
 html, body {
 	height: 100%;
+  text-align: center;
+  font-family: "Trebuchet MS", verdana, sans-serif;
 }
+
+
 .wrapper {
 	min-height: 100%;
 	height: auto !important;
@@ -13,12 +18,26 @@ html, body {
 .footer, .push {
 	height: 6em; /* .push must be the same height as .footer */
 }
-
-
-body {
+.footer {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2em;
+  color: #888;
+  font-size: 0.75em;
+  width: 55%;
   text-align: center;
-  font-family: "Trebuchet MS", verdana, sans-serif;
 }
+
+
+a, a:visited {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
 
 h1 {
   font-size: 135px;
@@ -29,6 +48,7 @@ h2 {
   font-size: 20px;
   margin-top: 6px;
 }
+
 
 form {
   font-size: 15px;
@@ -56,24 +76,6 @@ input.text {
   outline: none;
 }
 
-/*input.submit.mousedown {
-  color: white;
-  text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-  background: #0CA6DD;
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0CA6DD',endColorstr='#0770A0');
-  background: -webkit-gradient(linear,0% 100%,0% 0,from(#0CA6DD),to(#0770A0));
-  background: -moz-linear-gradient(90deg,#0CA6DD,#0770A0);
-}*/
-
-input.submit:hover {
-  color: white;
-  text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-  border-bottom-color: #0770A0;
-  background: #0770A0;
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0CA6DD',endColorstr='#0770A0');
-  background: -webkit-gradient(linear,0% 0,0% 100%,from(#0CA6DD),to(#0770A0));
-  background: -moz-linear-gradient(-90deg,#0CA6DD,#0770A0);
-}
 
 input.submit{
   margin-top: 15px;
@@ -101,15 +103,16 @@ input.submit{
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   cursor: pointer;
 }
+input.submit:hover {
+  color: white;
+  text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+  border-bottom-color: #0770A0;
+  background: #0770A0;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0CA6DD',endColorstr='#0770A0');
+  background: -webkit-gradient(linear,0% 0,0% 100%,from(#0CA6DD),to(#0770A0));
+  background: -moz-linear-gradient(-90deg,#0CA6DD,#0770A0);
+}
 
-a, a:visited {
-  color: black;
-  font-weight: bold;
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-}
 
 .error {
   margin-top: 4em;
@@ -118,13 +121,4 @@ a:hover {
   margin-left: auto;
   margin-right: auto;
   color: red;
-}
-.footer {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 2em;
-  color: #888;
-  font-size: 0.75em;
-  width: 55%;
-  text-align: center;
 }
