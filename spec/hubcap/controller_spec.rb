@@ -33,7 +33,21 @@ describe "Sinatra controller.rb" do
     end
   end
   
-  context "with good github credentials" do
+  context "with a good github login (no token)" do
+    before :all do
+      visit '/'
+      fill_in 'GitHub login', :with => @data[:login]
+      find_button('user_submit').click
+    end
+    it "should render the report" do
+      page.should have_css("div#chart")
+    end
+    it "should redirect to a path for the given login" do
+      page.current_path.should == "/#{@data[:login]}"
+    end
+  end
+
+  context "with a good github login and token" do
     before :all do
       visit '/'
       fill_in 'GitHub login', :with => @data[:login]
@@ -42,6 +56,9 @@ describe "Sinatra controller.rb" do
     end
     it "should render the report" do
       page.should have_css("div#chart")
+    end
+    it "should not redirect to a path for the given login" do
+      page.current_path.should == "/"
     end
   end
   
