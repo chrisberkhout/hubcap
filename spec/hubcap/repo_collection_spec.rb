@@ -92,6 +92,12 @@ module Hubcap
         repos = RepoCollection.new(:login => 'drnic')
         repos.weeks_of_partial_data.should == 52 - repos.weeks_of_full_data
       end
+      it "should never give weeks of partial data as a negative" do
+        fakeweb_drnic
+        repos = RepoCollection.new(:login => 'drnic')
+        repos.stub(:weeks_of_full_data) { 112 }
+        repos.weeks_of_partial_data.should == 0
+      end
     end
   
   end

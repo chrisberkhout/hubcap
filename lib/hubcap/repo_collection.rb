@@ -43,7 +43,7 @@ module Hubcap
     end
     
     def weeks_of_partial_data
-      52 - weeks_of_full_data
+      [52 - weeks_of_full_data, 0].max
     end
 
     private
