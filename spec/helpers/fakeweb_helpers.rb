@@ -36,6 +36,17 @@ def fakeweb_chrisberkhout
   data
 end
 
+def fakeweb_login
+  fakeweb_init
+
+  data = { :login => "login" }
+  FakeWeb.register_uri(
+    :any, "https://github.com/api/v2/json/repos/show/#{data[:login]}?page=1", 
+    :body => File.read("spec/resources/repos_show_#{data[:login]}_1.json")
+  )
+  data
+end
+
 def fakeweb_chrisberkhout_badcredentials
   fakeweb_init
 
