@@ -47,7 +47,11 @@ module Hubcap
     end
     
     def weeks_of_partial_data
-      [52 - weeks_of_full_data, 0].max
+      if without_participation.count == 0
+        0
+      else
+        [52 - weeks_of_full_data, 0].max
+      end
     end
 
     private

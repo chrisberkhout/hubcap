@@ -98,6 +98,13 @@ module Hubcap
         repos.stub(:weeks_of_full_data) { 112 }
         repos.weeks_of_partial_data.should == 0
       end
+      it "should not say data is partial if there are no repos without participation" do
+        fakeweb_drnic
+        repos = RepoCollection.new(:login => 'drnic')
+        repos.stub(:weeks_of_full_data) { 45 }
+        repos.stub(:without_participation) { mock(:count => 0) }
+        repos.weeks_of_partial_data.should == 0
+      end
     end
   
   end
