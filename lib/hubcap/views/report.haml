@@ -1,10 +1,10 @@
-!!!
+!!! 5
 %html
   %head
     %title Hubcap
     %link{:type => "text/css", :rel => "stylesheet", :href => "stylesheets/style-report.css"}
     %script{:type => "text/javascript", :src => "javascripts/protovis-r3.2.js"}
-    %script{:type => "text/javascript"}="var data = #{@repos.with_participation.to_json}; var weeks_of_partial_data = #{@repos.weeks_of_partial_data};"
+    %script{:type => "text/javascript"}="var data = #{@repos.with_participation.to_json(:ascii_only => true)}; var weeks_of_partial_data = #{@repos.weeks_of_partial_data};"
       
   %body
     #headings
