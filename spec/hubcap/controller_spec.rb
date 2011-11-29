@@ -2,7 +2,7 @@ require 'hubcap'
 require 'capybara'
 require 'capybara/dsl'
 require 'capybara/rspec'
-require 'spec/helpers/fakeweb_helpers'
+require_relative '../helpers/fakeweb_helpers'
 
 describe "Sinatra controller.rb" do
   include Capybara

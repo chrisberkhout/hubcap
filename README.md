@@ -65,7 +65,7 @@ visualise data from local repositories instead of from GitHub.
 
 ## Compatibility
 
-Written and tested with Ruby 1.8.7-p334.
+Written and tested with Ruby 1.9.2p290.
 
 ## Feedback
 

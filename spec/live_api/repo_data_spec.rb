@@ -1,6 +1,6 @@
 require 'json-schema'
-require 'spec/helpers/live_api_helper'
-require 'spec/helpers/fakeweb_helpers'
+require_relative '../helpers/live_api_helper'
+require_relative '../helpers/fakeweb_helpers'
 
 describe "GitHub API (v2)" do
   

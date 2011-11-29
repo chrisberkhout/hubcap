@@ -17,5 +17,5 @@ end
 
 group :development do
   gem "heroku"
-  gem "ruby-debug"
+  gem "ruby-debug19"
 end

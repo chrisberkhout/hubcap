@@ -1,5 +1,5 @@
 require 'hubcap/repo_collection'
-require 'spec/helpers/fakeweb_helpers'
+require_relative '../helpers/fakeweb_helpers'
   
 module Hubcap
   describe RepoCollection do

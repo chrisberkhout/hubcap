@@ -1,5 +1,5 @@
 require 'hubcap/github_api'
-require 'spec/helpers/fakeweb_helpers'
+require_relative '../helpers/fakeweb_helpers'
   
 module Hubcap
   describe GithubAPI do
