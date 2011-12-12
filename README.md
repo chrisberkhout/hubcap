@@ -5,7 +5,7 @@ Online at: [hubcap.heroku.com](http://hubcap.heroku.com).
 
 ## Screenshot
 
-![screenshot](tmp/screenshot.gif Screenshot)
+![screenshot](doc/screenshot.gif Screenshot)
 
 ## Introduction
 
