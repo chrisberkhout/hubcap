@@ -3,6 +3,10 @@
 A visual recap of your GitHub commits.
 Online at: [hubcap.heroku.com](http://hubcap.heroku.com).
 
+## Screenshot
+
+![screenshot](tmp/screenshot.gif Screenshot)
+
 ## Introduction
 
 After reading about ["Jerry Seinfeld's Productivity Secret"](http://lifehacker.com/281626/jerry-seinfelds-productivity-secret)
