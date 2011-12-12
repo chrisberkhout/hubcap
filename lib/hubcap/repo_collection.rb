@@ -1,4 +1,4 @@
-require 'hubcap/github_api'
+require './hubcap/github_api'
 
 module Hubcap
   class RepoCollection < Array

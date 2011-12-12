@@ -1,4 +1,4 @@
-require 'hubcap/repo_collection'
+require './hubcap/repo_collection'
 
 module Hubcap
   

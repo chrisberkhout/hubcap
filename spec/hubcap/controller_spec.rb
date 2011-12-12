@@ -1,4 +1,4 @@
-require 'hubcap'
+require './hubcap'
 require 'capybara'
 require 'capybara/dsl'
 require 'capybara/rspec'

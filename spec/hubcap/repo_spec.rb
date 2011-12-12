@@ -1,4 +1,4 @@
-require 'hubcap/repo'
+require './hubcap/repo'
   
 module Hubcap
   describe Repo do

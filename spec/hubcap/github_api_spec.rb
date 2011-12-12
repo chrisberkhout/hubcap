@@ -1,4 +1,4 @@
-require 'hubcap/github_api'
+require './hubcap/github_api'
 require_relative '../helpers/fakeweb_helpers'
   
 module Hubcap
