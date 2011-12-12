@@ -29,7 +29,7 @@ def fakeweb_chrisberkhout
   data[:repo_names].each do |repo_name|
     FakeWeb.register_uri(
       :any, "https://github.com/#{data[:login]}/#{repo_name}/graphs/participation", 
-      :body => File.read("spec/resources/participation_#{data[:login]}_#{repo_name}.base64")
+      :body => File.read("spec/resources/participation_#{data[:login]}_#{repo_name}.json")
     )
   end
   
@@ -85,8 +85,8 @@ def fakeweb_drnic(options = {:limit_to => 20})
   
   FakeWeb.register_uri(
     :any, %r|https\://github\.com/drnic/.*?/graphs/participation|, 
-    [{:body => File.read("spec/resources/participation_drnic_all.base64"), :times => options[:limit_to]},
-     {:body => File.read("spec/resources/participation_drnic_limited.base64")}]
+    [{:body => File.read("spec/resources/participation_drnic_all.json"), :times => options[:limit_to]},
+     {:body => File.read("spec/resources/participation_drnic_limited.json")}]
   )
   
   data = {
