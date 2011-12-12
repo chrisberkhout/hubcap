@@ -1,4 +1,4 @@
-require './hubcap/repo_collection'
+require_relative '../../lib/hubcap/repo_collection'
 require_relative '../helpers/fakeweb_helpers'
   
 module Hubcap

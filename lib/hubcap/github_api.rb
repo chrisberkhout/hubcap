@@ -2,7 +2,7 @@ require 'net/http'
 require 'httparty'
 require 'json'
 
-require './hubcap/repo'
+require_relative './repo'
 
 module Hubcap
   

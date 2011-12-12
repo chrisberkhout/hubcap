@@ -9,4 +9,4 @@ require 'sinatra'
 require 'haml'
 
 # app code
-require './hubcap/controller'
+require_relative './hubcap/controller'
