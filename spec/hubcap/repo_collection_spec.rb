@@ -81,8 +81,8 @@ module Hubcap
   
     describe "#weeks_of_full_data" do
       it "should give the number of weeks with full data" do
-        pending "Not sure if this regressed. Check correct result."
         fakeweb_drnic
+        Time.stub(:now).and_return(Time.parse("2011-06-22 00:00:00 +0000"))
         repos = RepoCollection.new(:login => 'drnic')
         repos.weeks_of_full_data.should == 18
       end
