@@ -18,7 +18,7 @@ a visualisation covering all my repos might help me become more consistent.
     bundle install
     
     # run specs and check GitHub APIs are alive
-    bundle exec rspec spec/hubcap 
+    bundle exec rspec spec/hubcap
     bundle exec rspec spec/live_api
     
     # start the server
