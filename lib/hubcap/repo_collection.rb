@@ -31,12 +31,6 @@ module Hubcap
     end
 
     def weeks_of_full_data
-      earliest_push = with_participation.by_last_pushed_desc.last.pushed_or_created_at
-      seconds_since_earliest_push = Time.now - Time.parse(earliest_push)
-      (seconds_since_earliest_push / 60 / 60 / 24 / 7).floor
-    end
-
-    def weeks_of_full_data
       if with_participation.count == 0
         0
       else
