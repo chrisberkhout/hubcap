@@ -29,10 +29,6 @@ a visualisation covering all my repos might help me become more consistent.
 Hubcap was a fun experiment and coding exercise. I got it to work, but it has
 several limitations. No further development is planned.
 
-Hubcap stopped working, around August 2011, when GitHub's (unofficial) 
-[participation data](https://github.com/chrisberkhout/hubcap/graphs/participation)
-switched from Base64 to JSON.
-
 ## Limitations
 
 Data is pulled from GitHub upon request and nothing is stored. That means there 
