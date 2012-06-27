@@ -1,11 +1,17 @@
 # Hubcap
 
 A visual recap of your GitHub commits.
-Online at: [hubcap.heroku.com](http://hubcap.heroku.com).
 
 ## Screenshot
 
 ![screenshot](hubcap/raw/master/doc/screenshot.gif)
+
+## Status
+
+**Hubcap has stopped working because GitHub has stopped running their v2 API.**
+
+Hubcap was a fun experiment and coding exercise. It was working, but had 
+several limitations. No further development is planned.
 
 ## Introduction
 
@@ -13,7 +19,6 @@ After reading about ["Jerry Seinfeld's Productivity Secret"](http://lifehacker.c
 I started taking more notice of the 52 week participation graphs on my GitHub
 repos. I knew my non-work coding activity had been cyclical and I thought that
 a visualisation covering all my repos might help me become more consistent.
-[Was I right?](http://hubcap.heroku.com/chrisberkhout)
 
 ## Run it locally
 
@@ -27,11 +32,6 @@ a visualisation covering all my repos might help me become more consistent.
     
     # start the server
     bundle exec rackup -p 4567 config.ru
-
-## Status
-
-Hubcap was a fun experiment and coding exercise. I got it to work, but it has
-several limitations. No further development is planned.
 
 ## Limitations
 
