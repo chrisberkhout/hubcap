@@ -4,7 +4,7 @@ A visual recap of your GitHub commits.
 
 ## Screenshot
 
-![screenshot](hubcap/raw/master/doc/screenshot.gif)
+![screenshot](doc/screenshot.gif)
 
 ## Status
 
